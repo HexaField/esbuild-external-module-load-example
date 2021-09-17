@@ -1,4 +1,4 @@
-
+const moduleURL = 'http://localhost:3000/myModule.ts'
 
 if (typeof window === 'undefined') {
 
@@ -29,6 +29,7 @@ if (typeof window === 'undefined') {
       string += '\n' + code
     }
   
+    // @ts-ignore
     const _module = new module.constructor()
     _module.filename = url
     _module._compile(await compile(string), url)
@@ -36,13 +37,13 @@ if (typeof window === 'undefined') {
     return _module.exports
   }
 
-  docompile('http://localhost:3000/myModule.ts').then((mymodule) => {
+  docompile(moduleURL).then((mymodule) => {
     mymodule.default()
   })
 
 } else {
 
-  import('http://localhost:3000/myModule.ts').then((mymodule) => {
+  import(/* @vite-ignore */ moduleURL).then((mymodule) => {
     mymodule.default()
   })
 
